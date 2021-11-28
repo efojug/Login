@@ -33,6 +33,10 @@ import com.efojug.login.databinding.ActivityLoginBinding;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
+    /*public native String login(String name);
+    static {
+        System.loadLibrary("login");
+    }*/
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
@@ -48,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
-        final CheckBox confirmButton = binding.confirm;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
 
@@ -59,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 boolean isChecked= false;
-                CheckBox confirm = (CheckBox) findViewById(R.id.confirm);
+                CheckBox confirm = findViewById(R.id.confirm);
                 confirm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -121,8 +124,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+                    loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
                 }
                 return false;
             }
@@ -132,8 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                loginViewModel.login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
             }
         });
     }
